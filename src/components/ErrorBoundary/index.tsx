@@ -1,36 +1,36 @@
-import { Component, ReactNode } from 'react';
-import { ErrorWrapper } from './styled';
+import { Component, ReactNode } from 'react'
+import ErrorWrapper from './styled'
 
 type Props = {
-  children: ReactNode;
-  fallback: string;
-};
+  children: ReactNode
+  fallback: string
+}
 
 type State = {
-  error: boolean;
-};
+  error: boolean
+}
 
 export default class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
-    super(props);
+    super(props)
 
     this.state = {
       error: false,
-    };
+    }
   }
 
   static getDerivedStateFromError() {
     return {
       error: true,
-    };
+    }
   }
 
   render() {
-    const { error } = this.state;
-    const { fallback, children } = this.props;
+    const { error } = this.state
+    const { fallback, children } = this.props
     if (error) {
-      return <ErrorWrapper>{fallback}</ErrorWrapper>;
+      return <ErrorWrapper>{fallback}</ErrorWrapper>
     }
-    return children;
+    return children
   }
 }

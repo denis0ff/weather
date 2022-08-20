@@ -1,7 +1,7 @@
-import { Loader } from './styled';
+import Spinner from './styled'
 
-const LOADER_SIZE = 100;
+const LOADER_SIZE = 100
 
 export default () => {
-  return <Loader height={LOADER_SIZE} width={LOADER_SIZE} />;
-};
+  return <Spinner height={LOADER_SIZE} width={LOADER_SIZE} />
+}

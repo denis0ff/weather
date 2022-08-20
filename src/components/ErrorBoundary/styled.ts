@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const ErrorWrapper = styled.div`
+export default styled.div`
   padding: ${({ theme }) => theme.spaces[1]};
   width: 100%;
   height: 100px;
@@ -10,4 +10,4 @@ export const ErrorWrapper = styled.div`
   text-align: center;
   padding: ${({ theme }) => theme.fontSizes[3]};
   background-color: ${({ theme }) => theme.colors.error};
-`;
+`

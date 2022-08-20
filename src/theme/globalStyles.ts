@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
-type ThemeParams = { theme: { [x: string]: string } };
+type ThemeParams = { theme: { [x: string]: string } }
 
 export default createGlobalStyle<ThemeParams>`
   * {
@@ -67,4 +67,4 @@ export default createGlobalStyle<ThemeParams>`
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.fontColor};
   }
-`;
+`

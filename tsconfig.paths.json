@@ -23,11 +23,11 @@
       "@interfaces": [
         "src/interfaces/"
       ],
-      "@reducers": [
-        "src/reducers/"
-      ],
       "@store": [
         "src/store/"
+      ],
+      "@store/*": [
+        "src/store/*"
       ],
       "@hooks": [
         "src/hooks/"

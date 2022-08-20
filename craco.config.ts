@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve } from 'path'
 
 export const webpack = {
   alias: {
@@ -14,4 +14,4 @@ export const webpack = {
     '@hooks': resolve(__dirname, 'src/hooks'),
     '@assets': resolve(__dirname, 'src/assets'),
   },
-};
+}
