@@ -8,4 +8,7 @@ export enum Endpoints {
   OPENWEATHER = 'https://api.openweathermap.org/data/2.5/onecall',
   STORMGLASS = 'https://api.stormglass.io/v2/weather/point',
   GEOAPIFY = 'https://api.geoapify.com/v1/geocode/search',
+  IPWHOIS = 'https://ipwho.is/?fields=country,city,latitude,longitude&lang=en',
 }
+
+export const weatherApis = ['openweather', 'stormglass']

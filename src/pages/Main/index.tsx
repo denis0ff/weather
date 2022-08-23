@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { KeyboardEventHandler } from 'react'
 import { RootState } from '@store'
-import { setCity } from '@store/actions'
+import { setCity, setCityByIp } from '@store/actions'
 
 export default () => {
   const { city } = useSelector((state: RootState) => state.data)

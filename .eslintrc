@@ -56,9 +56,7 @@
                 }
             }
         ],
-        "@typescript-eslint/default-param-last": 0,
-        "indent": "off",
-        "@typescript-eslint/indent": "off"
+        "@typescript-eslint/default-param-last": 0
     },
     "env": {
         "browser": true,

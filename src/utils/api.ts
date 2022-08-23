@@ -1,5 +1,10 @@
 import { Tokens, Endpoints } from '@constants'
-import { Coordinates } from '@interfaces'
+import {
+  Coordinates,
+  OpenWeatherResponse,
+  StormGlassResponse,
+} from '@interfaces'
+import { getEndDateStormglass } from './helpers'
 
 export const getCoordinates = async (
   city: string,
@@ -16,7 +21,7 @@ export const getCoordinates = async (
       longitude: results[0].lon,
     }
   } catch (error) {
-    return new Error('No coordinates for this place')
+    return new Error('Unkwown city. Correct the place, please')
   }
 }
 
@@ -24,6 +29,41 @@ export const getOpenWeather = async (lat: number, lon: number) => {
   const response = await fetch(
     `${Endpoints.OPENWEATHER}?lat=${lat}&lon=${lon}&units=metric&exclude=hourly,minutely&appid=${Tokens.OPENWEATHER}`,
   )
+  const data: OpenWeatherResponse = await response.json()
+  return data
+}
+
+export const getStormglass = async (lat: number, lon: number) => {
+  const date = getEndDateStormglass(7).getTime() / 1000
+
+  try {
+    const response = await fetch(
+      `${Endpoints.STORMGLASS}?lat=${lat}&lng=${lon}&params=airTemperature&end=${date}&source=sg`,
+      {
+        headers: {
+          Authorization: Tokens.STORMGLASS,
+        },
+      },
+    )
+
+    if (response.status === 402) {
+      throw Error()
+    }
+
+    const { hours }: StormGlassResponse = await response.json()
+
+    return {
+      hours: hours.filter(({ time }) => new Date(time).getHours() === 12),
+    }
+  } catch (e) {
+    return new Error(
+      'The daily request limit has been reached. Please choose another API',
+    )
+  }
+}
+
+export const getCoordinatesByIP = async () => {
+  const response = await fetch(Endpoints.IPWHOIS)
   const data = await response.json()
   return data
 }

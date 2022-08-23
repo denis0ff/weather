@@ -7,22 +7,19 @@ const initialState = {
 }
 
 export default (state = initialState, action: WeatherAction) => {
-  const {
-    type,
-    payload: { city, weather },
-  } = action
+  const { type, payload } = action
 
   switch (type) {
     case SET_OPENWEATHER: {
       return {
         ...state,
-        openweather: { ...state.openweather, [city]: weather },
+        openweather: { ...state.openweather, [payload.city]: payload.weather },
       }
     }
     case SET_STORMGLASS: {
       return {
         ...state,
-        stormglass: { ...state.stormglass, [city]: weather },
+        stormglass: { ...state.stormglass, [payload.city]: payload.weather },
       }
     }
     default:

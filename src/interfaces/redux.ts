@@ -1,5 +1,4 @@
-import { CallEffect, PutEffect, SelectEffect } from 'redux-saga/effects'
-import { Coordinates, OpenWeatherResponse, StormGlassResponse } from './api'
+import { Coordinates } from './api'
 
 type Action = {
   type: string
@@ -7,7 +6,6 @@ type Action = {
 
 export type WeatherData = {
   date: number
-  description: string
   icon: string
   temp: number
 }
@@ -25,26 +23,21 @@ export interface WeatherAction extends Action {
 }
 
 export interface DataAction extends Action {
-  payload: string
+  payload: string | Coordinates
 }
 
 export type DataInitialState = {
-  city: string
-  country: string
+  coordinates: Coordinates
   api: string
+  loading: boolean
+  error: string
 }
 
 /* export type WeatherInitialState = {
 
 } */
 
-export type WeatherWorker = Generator<
-  | SelectEffect
-  | CallEffect<Coordinates | Error>
-  | CallEffect<OpenWeatherResponse | StormGlassResponse | Error>
-  | PutEffect<{ type: string; payload: string }>
-  | PutEffect<{ type: string; payload: WeatherPayload }>
-  | PutEffect<{ type: string }>,
-  void,
-  unknown
->
+export type NormalizedWeather = {
+  today: WeatherData
+  daily: WeatherData[]
+}
