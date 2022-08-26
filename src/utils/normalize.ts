@@ -48,3 +48,20 @@ export const normalizeStormglass = (
   )
   return { today, daily }
 }
+
+export const getTime = (date: Date) => {
+  return date.toLocaleTimeString('en-UK', {
+    hour12: true,
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}
+
+export const getDate = (date: Date) => {
+  return date.toLocaleDateString('en-UK', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  })
+}

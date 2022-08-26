@@ -32,9 +32,9 @@ export default (state = initialState, action: DataAction) => {
     case STOP_LOADING:
       return { ...state, loading: false }
     case SET_ERROR:
-      return { ...state, error: payload }
+      return { ...state, error: <string>payload }
     case SET_API:
-      return { ...state, api: payload }
+      return { ...state, api: <string>payload }
     default:
       return state
   }

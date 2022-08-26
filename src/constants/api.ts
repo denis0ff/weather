@@ -12,3 +12,5 @@ export enum Endpoints {
 }
 
 export const weatherApis = ['openweather', 'stormglass']
+
+export const weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']

@@ -33,9 +33,15 @@ export type DataInitialState = {
   error: string
 }
 
-/* export type WeatherInitialState = {
+type WeatherApi = {
+  [x: string]: NormalizedWeather
+}
 
-} */
+export type WeatherInitialState = {
+  [x: string]: WeatherApi
+  openweather: WeatherApi
+  stormglass: WeatherApi
+}
 
 export type NormalizedWeather = {
   today: WeatherData

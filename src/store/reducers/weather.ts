@@ -1,7 +1,7 @@
-import { WeatherAction } from '@interfaces'
+import { WeatherAction, WeatherInitialState } from '@interfaces'
 import { SET_OPENWEATHER, SET_STORMGLASS } from '@store/actions'
 
-const initialState = {
+const initialState: WeatherInitialState = {
   openweather: {},
   stormglass: {},
 }

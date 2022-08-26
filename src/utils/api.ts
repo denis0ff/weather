@@ -21,7 +21,7 @@ export const getCoordinates = async (
       longitude: results[0].lon,
     }
   } catch (error) {
-    return new Error('Unkwown city. Correct the place, please')
+    return new Error('Unknown city. Correct the place, please')
   }
 }
 
@@ -34,7 +34,7 @@ export const getOpenWeather = async (lat: number, lon: number) => {
 }
 
 export const getStormglass = async (lat: number, lon: number) => {
-  const date = getEndDateStormglass(7).getTime() / 1000
+  const date = getEndDateStormglass(6).getTime() / 1000
 
   try {
     const response = await fetch(
