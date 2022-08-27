@@ -63,6 +63,15 @@
             {
                 "functions": "defaultArguments"
             }
+        ],
+        "operator-linebreak": [
+            "error",
+            "after",
+            {
+                "overrides": {
+                    "?": "before"
+                }
+            }
         ]
     },
     "env": {

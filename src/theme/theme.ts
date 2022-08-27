@@ -4,8 +4,8 @@ const black = '#000000'
 const white = '#ffffff'
 const error = '#c86464'
 const primary = '#2a3245'
-const secondary = '#787878'
-const border = '#727272'
+const secondary = '#727272'
+const border = '#979797'
 const bg = '#f5f5f5'
 
 export default {
@@ -20,6 +20,9 @@ export default {
   boxShadow: `0 0 20px 5px ${black}`,
   footerBgColor: '#3f4b6194',
   weatherIconSize: '30px',
+  slimBorder: `1px solid ${border}`,
+  wideBorder: `2px solid ${border}`,
+  footerHeight: '30%',
   colors: {
     primary,
     secondary,

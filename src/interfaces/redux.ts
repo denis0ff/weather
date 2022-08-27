@@ -47,3 +47,19 @@ export type NormalizedWeather = {
   today: WeatherData
   daily: WeatherData[]
 }
+
+export type CalendarTodo = {
+  time: string
+  summary: string
+}
+
+export type CalendarInitialState = {
+  token: string
+  todos: CalendarTodo[]
+  error: string
+  loading: string
+}
+
+export interface CalendarAction extends Action {
+  payload: string | CalendarTodo[]
+}

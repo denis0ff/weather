@@ -1,3 +1,4 @@
+import Calendar from '@components/Calendar'
 import CityWidget from '@components/CityWidget'
 import DateWidget from '@components/DateWidget'
 import WeatherWidget from '@components/WeatherWidget'
@@ -12,6 +13,7 @@ const Home = () => {
       <Container bg={bg}>
         <Main>
           <DateWidget />
+          <Calendar />
         </Main>
         <Aside>
           <CityWidget />

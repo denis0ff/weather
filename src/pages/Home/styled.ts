@@ -24,14 +24,16 @@ export const Container = styled.section<{ bg: string }>`
 
 export const Main = styled.main`
   flex: 1 0 65%;
+  max-height: calc(100% - ${({ theme }) => theme.footerHeight});
 `
 
 export const Aside = styled.aside`
   flex: 1 0 25%;
+  min-width: 360px;
 `
 
 export const Footer = styled.footer`
   flex: 0 0 100%;
-  height: 30%;
+  height: ${({ theme }) => theme.footerHeight};
   background: ${({ theme }) => theme.footerBgColor};
 `

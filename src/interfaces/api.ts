@@ -37,3 +37,19 @@ export type Coordinates = {
   latitude: number
   longitude: number
 }
+
+export type Client = {
+  j: { client_id: string }
+  requestAccessToken(overrideConfig?: unknown): void
+}
+
+type CalendarResponseItem = {
+  start: {
+    dateTime: string
+  }
+  summary: string
+}
+
+export type CalendarResponse = {
+  items: CalendarResponseItem[]
+}

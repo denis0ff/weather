@@ -8,6 +8,9 @@ export const getEndDateStormglass = (forwardDays: number) => {
   return nextDate
 }
 
-export const parseURL = (url: string, folder: string, format: string) =>
-  // eslint-disable-next-line implicit-arrow-linebreak
-  `url(${process.env.PUBLIC_URL}/${folder}/${url.slice(0, -1)}.${format})`
+export const parseURL = (url: string, folder: string, format: string) => {
+  return `url(${process.env.PUBLIC_URL}/${folder}/${url.slice(
+    0,
+    -1,
+  )}.${format})`
+}

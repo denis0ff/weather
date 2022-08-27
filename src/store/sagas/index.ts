@@ -1,9 +1,10 @@
 import { all, call, spawn } from 'redux-saga/effects'
 
 import weatherSaga from './weatherSaga'
+import calendarSaga from './calendarSaga'
 
 export default function* rootSaga() {
-  const sagas = [weatherSaga].map(saga => {
+  const sagas = [weatherSaga, calendarSaga].map(saga => {
     return spawn(function* generator() {
       while (true) {
         try {
