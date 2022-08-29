@@ -1,4 +1,4 @@
-import { takeLatest, call, put, select, fork, cancel } from 'redux-saga/effects'
+import { takeLatest, call, put, select, fork } from 'redux-saga/effects'
 import {
   setError,
   setLocation,
@@ -13,12 +13,14 @@ import {
 import {
   Coordinates,
   DataInitialState,
-  NormalizedWeather,
   OpenWeatherResponse,
   StormGlassResponse,
+  Weather,
+  WeatherInitialState,
   WeatherPayload,
 } from '@interfaces'
 import {
+  checkWeatherDate,
   getCoordinates,
   getCoordinatesByIP,
   getOpenWeather,
@@ -27,68 +29,76 @@ import {
   normalizeStormglass,
 } from '@utils'
 
-function* checkOnError(data: Error | unknown) {
-  if (data instanceof Error) {
-    yield put(setError(data.message))
-    yield put(stopLoading())
-    yield cancel()
-  }
+function* setErrorSaga(data: string) {
+  yield put(setError(data))
+  yield put(stopLoading())
 }
 
 function* callOpenWeather({ city, longitude, latitude }: Coordinates) {
-  const weather: OpenWeatherResponse = yield call(
+  const weatherResponse: OpenWeatherResponse = yield call(
     getOpenWeather,
     latitude,
     longitude,
   )
-  const { today, daily } = normalizeOpenWeather(weather)
-  return { city, weather: { today, daily } }
+  const weather = normalizeOpenWeather(weatherResponse)
+  return { city, weather }
 }
 
 function* callStormglass(
   { city, longitude, latitude }: Coordinates,
-  normalizedWeather: NormalizedWeather,
+  normalizedWeather: Weather,
 ) {
-  const weather: StormGlassResponse = yield call(
+  const weatherResponse: StormGlassResponse = yield call(
     getStormglass,
     latitude,
     longitude,
   )
-  const { today, daily } = normalizeStormglass(weather, normalizedWeather)
-  return { city, weather: { today, daily } }
+  const weather = normalizeStormglass(weatherResponse, normalizedWeather)
+  return { city, weather }
 }
 
 function* loadWeather() {
-  yield put(startLoading())
-  const { api, coordinates }: DataInitialState = yield select(
-    state => state.data,
+  const {
+    weather,
+    data: { api, coordinates },
+  }: { weather: WeatherInitialState; data: DataInitialState } = yield select(
+    state => state,
   )
+  if (checkWeatherDate(coordinates.city, weather[api])) {
+    yield setErrorSaga('')
+    return
+  }
+
+  yield put(startLoading())
   let payload: WeatherPayload = yield callOpenWeather(coordinates)
   yield put(setOpenWeather(payload))
 
   if (api === 'stormglass') {
     payload = yield callStormglass(coordinates, payload.weather)
-    yield checkOnError(payload)
+    if (payload instanceof Error) {
+      yield setErrorSaga(payload.message)
+      return
+    }
     yield put(setStormGlass(payload))
   }
 
-  yield put(setError(''))
-  yield put(stopLoading())
+  yield setErrorSaga('')
 }
 
 function* setCoordinates(isAutoLocation: boolean) {
+  const { city }: Coordinates = yield select(state => state.data.coordinates)
   yield put(startLoading())
-  let cityData: Coordinates
+  let payload: Coordinates
 
-  if (isAutoLocation) {
-    cityData = yield call(getCoordinatesByIP)
-  } else {
-    const { city }: Coordinates = yield select(state => state.data.coordinates)
-    cityData = yield call(getCoordinates, city)
+  if (isAutoLocation) payload = yield call(getCoordinatesByIP)
+  else payload = yield call(getCoordinates, city)
+
+  if (payload instanceof Error) {
+    yield setErrorSaga(payload.message)
+    return
   }
 
-  yield checkOnError(cityData)
-  yield put(setLocation(cityData))
+  yield put(setLocation(payload))
   yield loadWeather()
 }
 

@@ -1,14 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  margin: ${({ theme }) => theme.spaces[3]};
-  padding-left: ${({ theme }) => theme.spaces[4]};
+  margin-top: ${({ theme }) => theme.spaces[3]};
   max-height: calc(100% - ${({ theme }) => theme.footerHeight});
   font-weight: ${({ theme }) => theme.fontWeights[2]};
-  overflow: auto;
 `
 
-export const SignInButton = styled.button`
+export const Button = styled.button`
   padding: ${({ theme }) => `${theme.spaces[2]} ${theme.spaces[3]}`};
   background-color: ${({ theme }) => theme.colors.primary};
   font-size: ${({ theme }) => theme.fontSizes[2]};
@@ -19,5 +17,3 @@ export const SignInButton = styled.button`
     border-color: ${({ theme }) => theme.colors.secondary};
   }
 `
-
-export const LogoutButton = styled.button``

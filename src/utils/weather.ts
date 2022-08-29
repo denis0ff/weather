@@ -26,15 +26,21 @@ export const getCoordinates = async (
 }
 
 export const getOpenWeather = async (lat: number, lon: number) => {
-  const response = await fetch(
-    `${Endpoints.OPENWEATHER}?lat=${lat}&lon=${lon}&units=metric&exclude=hourly,minutely&appid=${Tokens.OPENWEATHER}`,
-  )
-  const data: OpenWeatherResponse = await response.json()
-  return data
+  try {
+    const response = await fetch(
+      `${Endpoints.OPENWEATHER}?lat=${lat}&lon=${lon}&units=metric&exclude=hourly,minutely&appid=${Tokens.OPENWEATHER}`,
+    )
+    const data: OpenWeatherResponse = await response.json()
+    return data
+  } catch {
+    return new Error(
+      'Something went wrong. Try to reload page or choose another API',
+    )
+  }
 }
 
 export const getStormglass = async (lat: number, lon: number) => {
-  const date = getEndDateStormglass(6).getTime() / 1000
+  const date = getEndDateStormglass(7).getTime() / 1000
 
   try {
     const response = await fetch(
@@ -63,7 +69,13 @@ export const getStormglass = async (lat: number, lon: number) => {
 }
 
 export const getCoordinatesByIP = async () => {
-  const response = await fetch(Endpoints.IPWHOIS)
-  const data = await response.json()
-  return data
+  try {
+    const response = await fetch(Endpoints.IPWHOIS)
+    const data = await response.json()
+    return data
+  } catch {
+    return new Error(
+      'Unable to get your location. Try to enter the city to get weather',
+    )
+  }
 }

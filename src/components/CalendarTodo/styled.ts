@@ -16,4 +16,5 @@ export const TodoTime = styled.span`
 
 export const TodoSummary = styled.span`
   line-height: ${({ theme }) => theme.fontSizes[3]};
+  word-break: break-word;
 `

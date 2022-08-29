@@ -1,4 +1,4 @@
-import GlobalStyles from './globalStyles'
+import GlobalStyles, { ErrorMessage } from './globalStyles'
 import theme from './theme'
 
-export { theme, GlobalStyles }
+export { theme, GlobalStyles, ErrorMessage }

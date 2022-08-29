@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { CalendarTodo as CalendarTodoType } from '@interfaces'
 import { TodoItem, TodoSummary, TodoTime } from './styled'
 
@@ -12,4 +13,4 @@ const CalendarTodo = ({ time, summary }: Props) => {
   )
 }
 
-export default CalendarTodo
+export default memo(CalendarTodo)

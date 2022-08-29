@@ -2,6 +2,7 @@ import {
   OpenWeatherResponse,
   StormGlassResponse,
   NormalizedWeather,
+  Weather,
   WeatherData,
 } from '@interfaces'
 
@@ -23,30 +24,30 @@ export const normalizeOpenWeather = (
     .slice(1)
     .slice(0, -1)
 
-  return { today, daily }
+  return { today, daily, date: Date.now() }
 }
 
 export const normalizeStormglass = (
   weather: StormGlassResponse,
-  normalized: NormalizedWeather,
+  weatherData: Weather,
 ): NormalizedWeather => {
   const [today, ...daily] = weather.hours.map(
     ({ airTemperature }, i): WeatherData => {
       if (i === 0) {
         return {
-          date: normalized.today.date,
-          icon: normalized.today.icon,
+          date: weatherData.today.date,
+          icon: weatherData.today.icon,
           temp: Math.floor(airTemperature.sg),
         }
       }
       return {
-        date: normalized.daily[i - 1].date,
-        icon: normalized.daily[i - 1].icon,
+        date: weatherData.daily[i - 1].date,
+        icon: weatherData.daily[i - 1].icon,
         temp: Math.floor(airTemperature.sg),
       }
     },
   )
-  return { today, daily }
+  return { today, daily, date: Date.now() }
 }
 
 export const getTime = (date: Date) => {

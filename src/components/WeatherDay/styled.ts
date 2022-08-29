@@ -1,16 +1,19 @@
 import { parseURL } from '@utils'
 import styled from 'styled-components'
 
-export const ListItem = styled.li<{ isToday: boolean }>`
-  margin-right: ${({ theme, isToday }) => {
-    return isToday ? theme.spaces[5] : theme.spaces[0]
-  }};
+export const ListItem = styled.li`
   display: grid;
   justify-items: center;
   align-items: center;
+  justify-content: center;
   gap: ${({ theme }) => theme.spaces[2]};
   font-weight: ${({ theme }) => theme.fontWeights[2]};
   font-size: ${({ theme }) => theme.fontSizes[3]};
+  @media screen and (max-width: 950px) {
+    :first-child {
+      flex: 0 0 100%;
+    }
+  }
 `
 
 export const Day = styled.span<{ isToday: boolean }>`

@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  margin: ${({ theme }) => theme.spaces[3]};
-  padding-left: ${({ theme }) => theme.spaces[4]};
-  padding-top: ${({ theme }) => theme.spaces[4]};
   font-weight: ${({ theme }) => theme.fontWeights[2]};
 `
 

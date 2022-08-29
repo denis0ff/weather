@@ -1,9 +1,19 @@
+import Loader from '@components/Loader'
 import WeatherDay from '@components/WeatherDay'
 import { useCityWeather } from '@hooks'
+import { ErrorMessage } from '@theme'
 import { List } from './styled'
 
 const WeatherWidget = () => {
-  const { today, daily } = useCityWeather()
+  const { today, daily, isLoading, error } = useCityWeather()
+
+  if (isLoading) {
+    return <Loader />
+  }
+
+  if (error) {
+    return <ErrorMessage>{error}</ErrorMessage>
+  }
 
   if (today && daily) {
     return (

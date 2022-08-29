@@ -10,12 +10,14 @@ export type WeatherData = {
   temp: number
 }
 
+export type Weather = {
+  today: WeatherData
+  daily: WeatherData[]
+}
+
 export type WeatherPayload = {
   city: string
-  weather: {
-    today: WeatherData
-    daily: WeatherData[]
-  }
+  weather: Weather
 }
 
 export interface WeatherAction extends Action {
@@ -29,11 +31,11 @@ export interface DataAction extends Action {
 export type DataInitialState = {
   coordinates: Coordinates
   api: string
-  loading: boolean
+  isLoading: boolean
   error: string
 }
 
-type WeatherApi = {
+export type WeatherApi = {
   [x: string]: NormalizedWeather
 }
 
@@ -46,6 +48,7 @@ export type WeatherInitialState = {
 export type NormalizedWeather = {
   today: WeatherData
   daily: WeatherData[]
+  date: number
 }
 
 export type CalendarTodo = {
@@ -56,8 +59,7 @@ export type CalendarTodo = {
 export type CalendarInitialState = {
   token: string
   todos: CalendarTodo[]
-  error: string
-  loading: string
+  isLoading: boolean
 }
 
 export interface CalendarAction extends Action {

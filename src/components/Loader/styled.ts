@@ -1,6 +1,9 @@
 import styled from 'styled-components'
-import { MutatingDots } from 'react-loader-spinner'
 
-export default styled(MutatingDots)`
-  margin: auto;
+export default styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

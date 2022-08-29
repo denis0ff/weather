@@ -10,9 +10,12 @@ export const SET_ERROR = 'SET_ERROR'
 export const SET_CITY_BY_IP = 'SET_CITY_BY_IP'
 export const SET_API = 'SET_API'
 
-export const INIT_GOOGLE = 'INIT_GOOGLE'
 export const SET_TOKEN = 'SET_TOKEN'
 export const SET_TODOS = 'SET_TODOS'
+export const UPDATE_TODOS = 'UPDATE_TODOS'
+export const LOGOUT = 'LOGOUT'
+export const TODOS_START_LOADING = 'TODOS_START_LOADING'
+export const TODOS_STOP_LOADING = 'TODOS_STOP_LOADING'
 
 export const setCity = (payload: string) => ({ type: SET_CITY, payload })
 export const setLocation = (payload: string | Coordinates) => ({
@@ -35,9 +38,12 @@ export const stopLoading = () => ({ type: STOP_LOADING })
 
 export const setCityByIp = () => ({ type: SET_CITY_BY_IP })
 
-export const initializeGoogle = () => ({ type: INIT_GOOGLE })
 export const setToken = (payload: string) => ({ type: SET_TOKEN, payload })
 export const setTodos = (payload: CalendarTodo[]) => ({
   type: SET_TODOS,
   payload,
 })
+export const logout = () => ({ type: LOGOUT })
+export const todosStartLoading = () => ({ type: TODOS_START_LOADING })
+export const todosStopLoading = () => ({ type: TODOS_STOP_LOADING })
+export const updateTodos = () => ({ type: UPDATE_TODOS })

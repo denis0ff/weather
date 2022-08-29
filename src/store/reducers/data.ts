@@ -12,7 +12,7 @@ import { weatherApis } from '@constants'
 const initialState: DataInitialState = {
   coordinates: { city: '', country: '', latitude: 0, longitude: 0 },
   api: weatherApis[0],
-  loading: false,
+  isLoading: false,
   error: '',
 }
 
@@ -28,9 +28,9 @@ export default (state = initialState, action: DataAction) => {
     case SET_LOCATION:
       return { ...state, coordinates: { ...(<Coordinates>payload) } }
     case START_LOADING:
-      return { ...state, loading: true }
+      return { ...state, isLoading: true }
     case STOP_LOADING:
-      return { ...state, loading: false }
+      return { ...state, isLoading: false }
     case SET_ERROR:
       return { ...state, error: <string>payload }
     case SET_API:

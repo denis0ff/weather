@@ -1,6 +1,7 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
+import defaultTheme from './theme'
 
-type ThemeParams = { theme: { [x: string]: string } }
+type ThemeParams = { theme: typeof defaultTheme }
 
 export default createGlobalStyle<ThemeParams>`
   * {
@@ -14,11 +15,11 @@ export default createGlobalStyle<ThemeParams>`
     }
 
     &::-webkit-scrollbar-track {
-      background: ${({ theme }) => theme.secondary};
+      background: ${({ theme }) => theme.colors.secondary};
     }
 
     &::-webkit-scrollbar-thumb {
-      background: ${({ theme }) => theme.primary};
+      background: ${({ theme }) => theme.colors.primary};
     }
   }
 
@@ -45,14 +46,8 @@ export default createGlobalStyle<ThemeParams>`
   }
 
   button {
-    border: ${({ theme }) => theme.defaultBorder};
-    background: ${({ theme }) => theme.primary};
     color: inherit;
     cursor: pointer;
-      &:hover {
-      border-color: ${({ theme }) => theme.primary};
-      background-color: ${({ theme }) => theme.secondary};
-    }
   }
 
   body {
@@ -64,7 +59,12 @@ export default createGlobalStyle<ThemeParams>`
   #root {
     display: flex;
     flex-direction: column;
-    background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.fontColor};
   }
+`
+
+export const ErrorMessage = styled.p`
+  width: 100%;
+  font-size: ${({ theme }) => theme.fontSizes[3]};
+  text-align: center !important;
 `

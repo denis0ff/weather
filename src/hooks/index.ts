@@ -1,17 +1,24 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { NormalizedWeather } from 'src/interfaces'
+import { WeatherData } from 'src/interfaces'
 
 import { useEffect } from 'react'
 import { Endpoints, Tokens } from '@constants'
 
-type ReturnType = NormalizedWeather | { today: null; daily: null }
+type ReturnType = {
+  today: WeatherData | null
+  daily: WeatherData[] | null
+  isLoading: boolean
+  error: string
+}
 
 export const useCityWeather = (): ReturnType => {
   const {
     data: {
       coordinates: { city },
       api,
+      isLoading,
+      error,
     },
     weather,
   } = useSelector((state: RootState) => state)
@@ -19,9 +26,9 @@ export const useCityWeather = (): ReturnType => {
   if (weather[api][city]) {
     const { today } = weather[api][city]
     const { daily } = weather[api][city]
-    return { today, daily }
+    return { today, daily, isLoading, error }
   }
-  return { today: null, daily: null }
+  return { today: null, daily: null, isLoading, error }
 }
 
 export default useCityWeather

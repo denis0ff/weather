@@ -1,11 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  margin: ${({ theme }) => theme.spaces[3]};
-  padding-right: ${({ theme }) => theme.spaces[4]};
-  padding-top: ${({ theme }) => theme.spaces[4]};
   & > * {
-    margin: ${({ theme }) => theme.spaces[2]};
+    margin: ${({ theme }) => theme.spaces[2]} 0;
     width: 100%;
     border: none;
     outline: none;

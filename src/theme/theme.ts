@@ -6,7 +6,6 @@ const error = '#c86464'
 const primary = '#2a3245'
 const secondary = '#727272'
 const border = '#979797'
-const bg = '#f5f5f5'
 
 export default {
   font,
@@ -18,7 +17,7 @@ export default {
   webkitScrollBarWidth: '5px',
   defaultTransition: '100ms',
   boxShadow: `0 0 20px 5px ${black}`,
-  footerBgColor: '#3f4b6194',
+  footerBgColor: '#1c1300a8',
   weatherIconSize: '30px',
   slimBorder: `1px solid ${border}`,
   wideBorder: `2px solid ${border}`,
@@ -27,7 +26,6 @@ export default {
     primary,
     secondary,
     border,
-    bg,
     black,
     white,
     error,

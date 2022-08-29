@@ -39,7 +39,6 @@ export type Coordinates = {
 }
 
 export type Client = {
-  j: { client_id: string }
   requestAccessToken(overrideConfig?: unknown): void
 }
 

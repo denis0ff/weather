@@ -1,11 +1,16 @@
-import { SET_TODOS, SET_TOKEN } from '@store/actions'
+import {
+  SET_TODOS,
+  SET_TOKEN,
+  LOGOUT,
+  TODOS_START_LOADING,
+  TODOS_STOP_LOADING,
+} from '@store/actions'
 import { CalendarAction, CalendarInitialState, CalendarTodo } from '@interfaces'
 
 const initialState: CalendarInitialState = {
   todos: [],
   token: '',
-  error: '',
-  loading: '',
+  isLoading: false,
 }
 
 export default (state = initialState, action: CalendarAction) => {
@@ -24,6 +29,17 @@ export default (state = initialState, action: CalendarAction) => {
         todos: <CalendarTodo[]>payload,
       }
     }
+    case LOGOUT: {
+      return {
+        todos: [],
+        token: '',
+        isLoading: false,
+      }
+    }
+    case TODOS_START_LOADING:
+      return { ...state, isLoading: true }
+    case TODOS_STOP_LOADING:
+      return { ...state, isLoading: false }
     default:
       return state
   }

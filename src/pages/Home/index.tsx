@@ -1,9 +1,9 @@
-import Calendar from '@components/Calendar'
+import CalendarWidget from '@components/CalendarWidget'
 import CityWidget from '@components/CityWidget'
 import DateWidget from '@components/DateWidget'
 import WeatherWidget from '@components/WeatherWidget'
 import { useCityWeather } from '@hooks'
-import { Aside, Container, Footer, Main, Wrapper } from './styled'
+import { Aside, Container, Footer, Main, Wrapper, MainWrapper } from './styled'
 
 const Home = () => {
   const { today } = useCityWeather()
@@ -11,13 +11,15 @@ const Home = () => {
   return (
     <Wrapper bg={bg}>
       <Container bg={bg}>
-        <Main>
-          <DateWidget />
-          <Calendar />
-        </Main>
-        <Aside>
-          <CityWidget />
-        </Aside>
+        <MainWrapper>
+          <Main>
+            <DateWidget />
+            <CalendarWidget />
+          </Main>
+          <Aside>
+            <CityWidget />
+          </Aside>
+        </MainWrapper>
         <Footer>
           <WeatherWidget />
         </Footer>
