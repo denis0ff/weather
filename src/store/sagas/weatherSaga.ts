@@ -40,6 +40,10 @@ function* callOpenWeather({ city, longitude, latitude }: Coordinates) {
     latitude,
     longitude,
   )
+  if (weatherResponse instanceof Error) {
+    yield setErrorSaga(weatherResponse.message)
+    return null
+  }
   const weather = normalizeOpenWeather(weatherResponse)
   return { city, weather }
 }
@@ -53,6 +57,10 @@ function* callStormglass(
     latitude,
     longitude,
   )
+  if (weatherResponse instanceof Error) {
+    yield setErrorSaga(weatherResponse.message)
+    return null
+  }
   const weather = normalizeStormglass(weatherResponse, normalizedWeather)
   return { city, weather }
 }
@@ -71,14 +79,12 @@ function* loadWeather() {
 
   yield put(startLoading())
   let payload: WeatherPayload = yield callOpenWeather(coordinates)
+  if (payload === null) return
   yield put(setOpenWeather(payload))
 
   if (api === 'stormglass') {
     payload = yield callStormglass(coordinates, payload.weather)
-    if (payload instanceof Error) {
-      yield setErrorSaga(payload.message)
-      return
-    }
+    if (payload === null) return
     yield put(setStormGlass(payload))
   }
 
