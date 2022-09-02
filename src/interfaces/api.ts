@@ -1,14 +1,18 @@
 type OpenWeather = {
   icon: string
-  description: string
 }
 
-type OpenWeatherDaily = {
-  temp: {
-    day: number
-  }
+type OpenWeatherData = {
   weather: OpenWeather[]
   dt: number
+}
+
+interface OpenWeatherHourly extends OpenWeatherData {
+  temp: number
+}
+
+interface OpenWeatherDaily extends OpenWeatherData {
+  temp: { day: number }
 }
 
 export type OpenWeatherResponse = {
@@ -18,6 +22,7 @@ export type OpenWeatherResponse = {
     dt: number
   }
   daily: OpenWeatherDaily[]
+  hourly: OpenWeatherHourly[]
 }
 
 type StormGlass = {

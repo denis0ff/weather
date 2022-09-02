@@ -1,18 +1,13 @@
 import { memo } from 'react'
-import { WeatherData } from '@interfaces'
-import { weekDays } from '@constants'
 import { Day, Icon, ListItem, Temperature } from './styled'
+import { WeatherDayProps } from './interfaces'
 
-interface Props extends WeatherData {
-  isToday?: boolean
-}
-
-const WeatherDay = ({ date, icon, temp, isToday = false }: Props) => {
+const WeatherDay = ({ date, icon, temp, isFirst }: WeatherDayProps) => {
   return (
     <ListItem>
-      <Day isToday={isToday}>{isToday ? 'TODAY' : weekDays[date]}</Day>
-      <Icon icon={icon} isToday={isToday} />
-      <Temperature isToday={isToday}>
+      <Day isFirst={isFirst}>{date}</Day>
+      <Icon icon={icon} isFirst={isFirst} />
+      <Temperature isFirst={isFirst}>
         {temp}
         <sup>o</sup>
       </Temperature>

@@ -1,17 +1,16 @@
-import { Tokens, Endpoints } from '@constants'
 import {
   Coordinates,
   OpenWeatherResponse,
   StormGlassResponse,
 } from '@interfaces'
-import { getEndDateStormglass } from './helpers'
+import { getStormglassDates } from './helpers'
 
 export const getCoordinates = async (
   city: string,
 ): Promise<Coordinates | Error> => {
   try {
     const response = await fetch(
-      `${Endpoints.GEOAPIFY}?text=${city}&lang=en&limit=1&type=city&format=json&apiKey=${Tokens.GEOAPIFY}`,
+      `${process.env.REACT_APP_GEOAPIFY_ENDPOINT}?text=${city}&lang=en&limit=1&type=city&format=json&apiKey=${process.env.REACT_APP_GEOAPIFY_TOKEN}`,
     )
     const { results } = await response.json()
     return {
@@ -28,8 +27,9 @@ export const getCoordinates = async (
 export const getOpenWeather = async (lat: number, lon: number) => {
   try {
     const response = await fetch(
-      `${Endpoints.OPENWEATHER}?lat=${lat}&lon=${lon}&units=metric&exclude=hourly,minutely&appid=${Tokens.OPENWEATHER}`,
+      `${process.env.REACT_APP_OPENWEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&units=metric&exclude=minutely&appid=${process.env.REACT_APP_OPENWEATHER_TOKEN}`,
     )
+    if (response.status !== 200) throw Error()
     const data: OpenWeatherResponse = await response.json()
     return data
   } catch {
@@ -40,14 +40,14 @@ export const getOpenWeather = async (lat: number, lon: number) => {
 }
 
 export const getStormglass = async (lat: number, lon: number) => {
-  const date = getEndDateStormglass(7).getTime() / 1000
+  const [start, end] = getStormglassDates(7)
 
   try {
     const response = await fetch(
-      `${Endpoints.STORMGLASS}?lat=${lat}&lng=${lon}&params=airTemperature&end=${date}&source=sg`,
+      `${process.env.REACT_APP_STORMGLASS_ENDPOINT}?lat=${lat}&lng=${lon}&params=airTemperature&start=${start}&end=${end}&source=sg`,
       {
         headers: {
-          Authorization: Tokens.STORMGLASS,
+          Authorization: <string>process.env.REACT_APP_STORMGLASS_TOKEN,
         },
       },
     )
@@ -56,11 +56,9 @@ export const getStormglass = async (lat: number, lon: number) => {
       throw Error()
     }
 
-    const { hours }: StormGlassResponse = await response.json()
+    const data: StormGlassResponse = await response.json()
 
-    return {
-      hours: hours.filter(({ time }) => new Date(time).getHours() === 12),
-    }
+    return data
   } catch (e) {
     return new Error(
       'The daily request limit has been reached. Please choose another API',
@@ -70,7 +68,7 @@ export const getStormglass = async (lat: number, lon: number) => {
 
 export const getCoordinatesByIP = async () => {
   try {
-    const response = await fetch(Endpoints.IPWHOIS)
+    const response = await fetch(<string>process.env.REACT_APP_IPWHOIS_ENDPOINT)
     const data = await response.json()
     return data
   } catch {

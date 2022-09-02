@@ -33,15 +33,9 @@ const Calendar = () => {
 
   useGoogle()
 
-  if (isLoading) {
-    return (
-      <Container>
-        <Loader />
-      </Container>
-    )
-  }
-
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <Container>
       {token ? (
         <Button onClick={updateTodo}>Update</Button>

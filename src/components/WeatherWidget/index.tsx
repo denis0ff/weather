@@ -5,32 +5,27 @@ import { ErrorMessage } from '@theme'
 import { List } from './styled'
 
 const WeatherWidget = () => {
-  const { today, daily, isLoading, error } = useCityWeather()
+  const { weather, isLoading, error } = useCityWeather()
 
-  if (isLoading) {
-    return <Loader />
-  }
-
-  if (error) {
-    return <ErrorMessage>{error}</ErrorMessage>
-  }
-
-  if (today && daily) {
-    return (
-      <List>
-        <WeatherDay
-          date={today.date}
-          icon={today.icon}
-          temp={today.temp}
-          isToday
-        />
-        {daily.map(({ date, icon, temp }) => (
-          <WeatherDay key={date} date={date} icon={icon} temp={temp} />
-        ))}
-      </List>
-    )
-  }
-  return null
+  return (
+    <>
+      {isLoading && <Loader />}
+      {!isLoading && error && <ErrorMessage>{error}</ErrorMessage>}
+      {!isLoading && !error && weather && (
+        <List>
+          {weather.map(({ date, icon, temp }, i) => (
+            <WeatherDay
+              key={date}
+              date={date}
+              icon={icon}
+              temp={temp}
+              isFirst={i === 0}
+            />
+          ))}
+        </List>
+      )}
+    </>
+  )
 }
 
 export default WeatherWidget

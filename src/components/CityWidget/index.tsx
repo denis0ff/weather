@@ -6,22 +6,17 @@ import {
   useState,
 } from 'react'
 import { RootState } from '@store'
-import { setApi, setCity, setCityByIp } from '@store/actions'
-import { weatherApis } from '@constants'
+import { setApi, setCity, setCityByIp, setType } from '@store/actions'
+import { weatherApis, weatherTypes } from '@constants'
 import Loader from '@components/Loader'
 import { ErrorMessage } from '@theme'
-import {
-  ApiSwitcher,
-  CityInput,
-  CityName,
-  Container,
-  CountryName,
-} from './styled'
+import { Switcher, CityInput, CityName, Container, CountryName } from './styled'
 
 const CityWidget = () => {
   const {
     coordinates: { city, country },
     api,
+    type,
     error,
     isLoading,
   } = useSelector((state: RootState) => state.data)
@@ -53,6 +48,10 @@ const CityWidget = () => {
 
   useEffect(() => setCurrentCity(city), [city])
 
+  const handleTypeChange: ChangeEventHandler<HTMLSelectElement> = ({
+    currentTarget: { value },
+  }) => dispatch(setType(value))
+
   return (
     <Container>
       <CityInput
@@ -61,13 +60,20 @@ const CityWidget = () => {
         onKeyUp={handleSearchCity}
         onChange={handleCityChange}
       />
-      <ApiSwitcher defaultValue={api} onChange={handleApiChange}>
+      <Switcher defaultValue={api} onChange={handleApiChange}>
         {weatherApis.map(item => (
           <option key={item} value={item}>
             {item}
           </option>
         ))}
-      </ApiSwitcher>
+      </Switcher>
+      <Switcher value={type} onChange={handleTypeChange}>
+        {weatherTypes.map(item => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
+      </Switcher>
       {isLoading && <Loader />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {!isLoading && !error && (

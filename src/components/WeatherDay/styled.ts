@@ -16,28 +16,28 @@ export const ListItem = styled.li`
   }
 `
 
-export const Day = styled.span<{ isToday: boolean }>`
-  grid-area: ${({ isToday }) => (isToday ? '1 / 2 / 2 / 3' : '1 / 1 / 2 / 2')};
+export const Day = styled.span<{ isFirst: boolean }>`
+  grid-area: ${({ isFirst }) => (isFirst ? '1 / 2 / 2 / 3' : '1 / 1 / 2 / 2')};
   padding: ${({ theme }) => theme.spaces[2]};
   background-color: ${({ theme }) => theme.colors.primary};
-  font-size: ${({ theme, isToday }) => {
-    return isToday ? theme.fontSizes[2] : theme.fontSizes[1]
+  font-size: ${({ theme, isFirst }) => {
+    return isFirst ? theme.fontSizes[2] : theme.fontSizes[1]
   }};
   border-radius: ${({ theme }) => theme.borderRadiuses[3]};
 `
 
-export const Icon = styled.span<{ icon: string; isToday: boolean }>`
-  grid-area: ${({ isToday }) => (isToday ? '1 / 1 / 3 / 2' : '2 / 1 / 3 / 2')};
-  padding: ${({ theme, isToday }) => {
-    return `calc(${isToday ? 2 : 1} * ${theme.weatherIconSize})`
+export const Icon = styled.span<{ icon: string; isFirst: boolean }>`
+  grid-area: ${({ isFirst }) => (isFirst ? '1 / 1 / 3 / 2' : '2 / 1 / 3 / 2')};
+  padding: ${({ theme, isFirst }) => {
+    return `calc(${isFirst ? 2 : 1} * ${theme.weatherIconSize})`
   }};
   background: center / cover no-repeat
     ${({ icon }) => parseURL(icon, 'icons', 'png')};
 `
 
-export const Temperature = styled.span<{ isToday: boolean }>`
-  grid-area: ${({ isToday }) => (isToday ? '2 / 2 / 3 / 3' : '3 / 1 / 4 / 2')};
-  font-size: ${({ theme, isToday }) => {
-    return isToday ? theme.fontSizes[6] : theme.fontSizes[3]
+export const Temperature = styled.span<{ isFirst: boolean }>`
+  grid-area: ${({ isFirst }) => (isFirst ? '2 / 2 / 3 / 3' : '3 / 1 / 4 / 2')};
+  font-size: ${({ theme, isFirst }) => {
+    return isFirst ? theme.fontSizes[6] : theme.fontSizes[3]
   }};
 `

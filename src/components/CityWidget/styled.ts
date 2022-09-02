@@ -31,7 +31,7 @@ export const CountryName = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[3]};
 `
 
-export const ApiSwitcher = styled.select`
+export const Switcher = styled.select`
   padding: ${({ theme }) => `${theme.spaces[1]} ${theme.spaces[2]}`};
   font-size: ${({ theme }) => theme.fontSizes[2]};
   background: ${({ theme }) => `${theme.colors.black}1a`};

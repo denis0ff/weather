@@ -6,8 +6,9 @@ import { useCityWeather } from '@hooks'
 import { Aside, Container, Footer, Main, Wrapper, MainWrapper } from './styled'
 
 const Home = () => {
-  const { today } = useCityWeather()
-  const bg = today ? today.icon : 'error'
+  const { weather } = useCityWeather()
+  const bg = weather ? weather[0].icon : 'error'
+
   return (
     <Wrapper bg={bg}>
       <Container bg={bg}>

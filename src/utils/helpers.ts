@@ -1,13 +1,13 @@
 import { WeatherApi } from '@interfaces'
 
-export const getEndDateStormglass = (forwardDays: number) => {
+export const getStormglassDates = (forwardDays: number) => {
   const today = new Date()
   const nextDate = new Date(
     today.getFullYear(),
     today.getMonth(),
     today.getDate() + forwardDays,
   )
-  return nextDate
+  return [today.toISOString(), nextDate.toISOString()]
 }
 
 export const parseURL = (url: string, folder: string, format: string) => {
@@ -31,6 +31,6 @@ export const parseTimeFromIso = (iso: string) => {
 }
 
 export const checkWeatherDate = (city: string, weather: WeatherApi) => {
-  const MINIMAL_TIME = 1000 * 60 * 60 * 4 // 4 hours
+  const MINIMAL_TIME = 1000 * 60 * 60 * 1 // 1 hours
   return weather[city] && Date.now() - weather[city].date <= MINIMAL_TIME
 }

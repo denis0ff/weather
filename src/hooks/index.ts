@@ -1,34 +1,27 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { WeatherData } from 'src/interfaces'
 
 import { useEffect } from 'react'
-import { Endpoints, Tokens } from '@constants'
+import { WeatherData } from '@interfaces'
+import { UseCityReturnType } from './types'
 
-type ReturnType = {
-  today: WeatherData | null
-  daily: WeatherData[] | null
-  isLoading: boolean
-  error: string
-}
-
-export const useCityWeather = (): ReturnType => {
+export const useCityWeather = (): UseCityReturnType => {
   const {
     data: {
       coordinates: { city },
       api,
+      type,
       isLoading,
       error,
     },
-    weather,
+    weather: weatherState,
   } = useSelector((state: RootState) => state)
 
-  if (weather[api][city]) {
-    const { today } = weather[api][city]
-    const { daily } = weather[api][city]
-    return { today, daily, isLoading, error }
+  if (weatherState[api][city]) {
+    const weather = <WeatherData[]>weatherState[api][city][type]
+    return { weather, isLoading, error }
   }
-  return { today: null, daily: null, isLoading, error }
+  return { weather: null, isLoading, error }
 }
 
 export default useCityWeather
@@ -36,10 +29,10 @@ export default useCityWeather
 export const useGoogle = () => {
   useEffect(() => {
     const script = document.createElement('script')
-    script.src = Endpoints.GOOGLE_CLIENT_API
+    script.src = <string>process.env.REACT_APP_GOOGLE_CLIENT_API
     script.onload = () => {
       google.accounts.id.initialize({
-        client_id: Tokens.GOOGLE_CLIENT_ID,
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         auto_select: false,
       })
     }

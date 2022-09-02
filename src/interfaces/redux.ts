@@ -5,19 +5,19 @@ type Action = {
 }
 
 export type WeatherData = {
-  date: number
+  date: string
   icon: string
   temp: number
 }
 
 export type Weather = {
-  today: WeatherData
   daily: WeatherData[]
+  hourly: WeatherData[]
 }
 
 export type WeatherPayload = {
   city: string
-  weather: Weather
+  weather: NormalizedWeather
 }
 
 export interface WeatherAction extends Action {
@@ -31,6 +31,7 @@ export interface DataAction extends Action {
 export type DataInitialState = {
   coordinates: Coordinates
   api: string
+  type: string
   isLoading: boolean
   error: string
 }
@@ -45,9 +46,8 @@ export type WeatherInitialState = {
   stormglass: WeatherApi
 }
 
-export type NormalizedWeather = {
-  today: WeatherData
-  daily: WeatherData[]
+export interface NormalizedWeather extends Weather {
+  [x: string]: WeatherData[] | number
   date: number
 }
 
