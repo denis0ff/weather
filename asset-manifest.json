@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/weather/static/js/main.5d3054da.js",
+    "main.js": "/weather/static/js/main.f74b5f93.js",
     "index.html": "/weather/index.html",
-    "main.5d3054da.js.map": "/weather/static/js/main.5d3054da.js.map"
+    "main.f74b5f93.js.map": "/weather/static/js/main.f74b5f93.js.map"
   },
   "entrypoints": [
-    "static/js/main.5d3054da.js"
+    "static/js/main.f74b5f93.js"
   ]
 }
